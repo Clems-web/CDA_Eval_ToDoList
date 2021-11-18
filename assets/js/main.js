@@ -8,12 +8,21 @@ let list = document.getElementById('list');
 let button = document.getElementById('addTask');
 let task = document.getElementById('taskName');
 
+let storage = window.localStorage;
+let indexStorage = storage.length;
+console.log(indexStorage);
+
 button.addEventListener('click', function () {
 
     let divSpan = document.createElement('div');
     let span = document.createElement('span');
+    span.setAttribute('data-id', indexStorage);
     span.innerHTML = task.value;
     divSpan.append(span);
+
+    storage.setItem(indexStorage, span.innerHTML);
+    indexStorage++;
+    console.log(indexStorage);
 
     task.value = "";
 
@@ -27,6 +36,10 @@ button.addEventListener('click', function () {
 
     divIconDel.addEventListener('click', function () {
         this.parentElement.parentElement.remove();
+        let spanToDel = this.parentElement.parentElement.firstChild.firstChild;
+        let dataId = spanToDel.getAttribute('data-id');
+        storage.removeItem(dataId);
+
     });
 
     divIconEdit.addEventListener('click', function () {
