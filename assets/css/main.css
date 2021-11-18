@@ -1,0 +1,91 @@
+/* #333333 => font color */
+/* #f5f5f5 => background color */
+/* #95d6b7 => bordercolor input text + button + font color button + validé */
+/* #45bfe7 => font color éditer */
+/* #dc5350 => font color supprimer */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+#appContainer {
+    width: 100%;
+    height: fit-content;
+}
+h1 {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 4rem;
+}
+
+#inputText {
+    margin-top: 4rem;
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+}
+
+#inputText input, #inputText button {
+    border: 1px solid #95d6b7;
+    font-size: 2rem;
+    height: 4rem;
+    border-radius: 5px;
+}
+
+#inputText input {
+    width: 80%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 1rem;
+    color: #333333;
+}
+
+#inputText button {
+    width: 20%;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-left: none;
+    color: #95d6b7;
+}
+
+i {
+    font-size: 2rem;
+    padding-left: 1rem;
+}
+
+#list {
+    width: 80%;
+    height: fit-content;
+    margin-left: 10%;
+}
+
+.taskDiv {
+    width: 100%;
+    height: fit-content;
+    font-size: 3rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+span {
+    font-size: 2rem;
+}
+
+.taskDiv div {
+    padding-left: 1rem;
+}
+
+.divIcon {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
