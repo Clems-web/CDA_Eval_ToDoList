@@ -15,6 +15,8 @@ button.addEventListener('click', function () {
     span.innerHTML = task.value;
     divSpan.append(span);
 
+    task.value = "";
+
     let divIconValide = document.createElement('div');
     let divIconEdit = document.createElement('div');
     let divIconDel = document.createElement('div');
@@ -25,7 +27,7 @@ button.addEventListener('click', function () {
 
     divIconDel.addEventListener('click', function () {
         this.parentElement.parentElement.remove();
-    })
+    });
 
     divIconEdit.addEventListener('click', function () {
         let divSpan = this.parentElement.parentElement.firstChild;
@@ -50,10 +52,14 @@ button.addEventListener('click', function () {
 
             input.remove();
             this.remove();
-        })
+        });
 
+    });
 
-    })
+    divIconValide.addEventListener('click', function () {
+        let spanTovalidate = this.parentElement.parentElement.firstChild.firstChild;
+        spanTovalidate.style.textDecoration = 'line-through';
+    });
 
     let divIcon = document.createElement('div');
     divIcon.setAttribute('class', 'divIcon');
