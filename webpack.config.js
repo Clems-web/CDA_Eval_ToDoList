@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
     const config = argv.mode === 'development' ? devConfig() : prodConfig();
     return {
         entry: {
-            main: "./assets/js/main.js",
+            main: "./assets/main.js",
         },
 
         output: {
@@ -88,7 +88,7 @@ function prodConfig() {
 
                 // Configuration de babel pour les navigateurs plus anciens.
                 {
-                    test: /\.js$/,
+                    test: /\.(m)js$/,
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env'],

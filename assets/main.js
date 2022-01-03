@@ -1,17 +1,17 @@
-import css from "../css/main.css";
-import Chart from '../../node_modules/chart.js/auto';
-import {valide} from "./valide";
-import {edit} from "./edit";
-import {del} from "./del";
+import css from "./css/main.css";
+import {valide} from "./js/valide.mjs";
+import {edit} from "./js/edit.mjs";
+import {del} from "./js/del.mjs";
+import "../node_modules/chart.js/dist/chart.js";
 
 let list = document.getElementById('list');
 let button = document.getElementById('addTask');
 let task = document.getElementById('taskName');
 
+let numberOfDelete = 0;
+
 let storage = window.localStorage;
 let indexStorage = storage.length + 1;
-console.log(indexStorage);
-console.log(storage);
 
 for (let x = 0; x < storage.length; x++){
 
@@ -35,11 +35,14 @@ for (let x = 0; x < storage.length; x++){
         let dataId = spanToDel.getAttribute('data-id');
         storage.removeItem(dataId);
 
+        numberOfDelete++;
+
     });
 
     divIconEdit.addEventListener('click', function () {
         let divSpan = this.parentElement.parentElement.firstChild;
         let spanToChange = this.parentElement.parentElement.firstChild.firstChild;
+        let spanDataId = spanToChange.getAttribute('data-id');
 
         let textSpan = spanToChange.innerHTML;
         spanToChange.remove();
@@ -55,6 +58,8 @@ for (let x = 0; x < storage.length; x++){
         confirm.addEventListener('click', function () {
             let newSpan = document.createElement('span');
             newSpan.innerHTML = input.value;
+            newSpan.setAttribute('data-id', spanDataId);
+            storage.setItem(spanDataId, newSpan.innerHTML);
 
             divSpan.append(newSpan);
 
@@ -93,7 +98,6 @@ button.addEventListener('click', function () {
 
         storage.setItem(indexStorage, span.innerHTML);
         indexStorage++;
-        console.log(indexStorage);
 
         task.value = "";
 
@@ -111,11 +115,14 @@ button.addEventListener('click', function () {
             let dataId = spanToDel.getAttribute('data-id');
             storage.removeItem(dataId);
 
+            numberOfDelete++;
+
         });
 
         divIconEdit.addEventListener('click', function () {
             let divSpan = this.parentElement.parentElement.firstChild;
             let spanToChange = this.parentElement.parentElement.firstChild.firstChild;
+            let spanDataId = spanToChange.getAttribute('data-id');
 
             let textSpan = spanToChange.innerHTML;
             spanToChange.remove();
@@ -131,6 +138,8 @@ button.addEventListener('click', function () {
             confirm.addEventListener('click', function () {
                 let newSpan = document.createElement('span');
                 newSpan.innerHTML = input.value;
+                newSpan.setAttribute('data-id', spanDataId);
+                storage.setItem(spanDataId, newSpan.innerHTML);
 
                 divSpan.append(newSpan);
 
@@ -147,7 +156,7 @@ button.addEventListener('click', function () {
 
         let divIcon = document.createElement('div');
         divIcon.setAttribute('class', 'divIcon');
-        divIcon.append(divIconValide, divIconEdit,divIconDel);
+        divIcon.append(divIconValide, divIconEdit, divIconDel);
 
         let taskDiv = document.createElement('div');
         taskDiv.setAttribute('class', 'taskDiv');
@@ -157,6 +166,38 @@ button.addEventListener('click', function () {
     }
 })
 
+let buttonCanva = document.getElementById('canvaButton');
+let refresh = document.getElementById('refresh');
+refresh.addEventListener('click', function () {
+   window.location.reload();
+});
+
+let ctx = document.getElementById('myChart');
+
+
+buttonCanva.addEventListener('click', function () {
+
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [""],
+            datasets: [{
+                label: 'Number of task done',
+                data: [numberOfDelete],
+                backgroundColor: 'red',
+                borderColor: 'black',
+                borderWidth: '1'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+})
 
 
 
